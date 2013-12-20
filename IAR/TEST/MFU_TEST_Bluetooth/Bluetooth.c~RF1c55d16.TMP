@@ -1,0 +1,138 @@
+/*******************************************************************************
+********************************************************************************
+**                                                                            **
+**          БИБЛИОТЕКА ФУНКЦИЙ МОДУЛЯ Bluetooth LMX9838                       **
+**                                                                            **
+********************************************************************************
+*******************************************************************************/
+
+//******************Подключаемые файлы******************************************
+#include "Bluetooth.h"
+#include "main.h"
+#include <string.h>
+#include <stdio.h>
+#include "navigation.h"
+#include "GSM.h"
+//*************Инициализация глобальных переменных******************************
+
+const char Bluetooth_Answer1[7] = {7 , 0x02,0x69,0x0C,0x07,0x00,0x7C};
+uint16_t cnt;
+
+//*****************Функции для работы с Bluetooth ******************************
+
+void Bluetooth_Configuration(void) //Функция инициализации Bluetooth
+{
+GPIO_SetBits(BLUETOOTH , BLUE_RESET); //Выводим Bluetooth из состояния сброса  
+ delay_ms(1000); 
+  Reset_rxDMA_ClearBufer(Bluetooth);
+ 
+}
+
+
+void Bluetooth_Read(void) //Функция чтения буфера Bluetooth
+{
+  char out1[]="FFFF";
+  uint16_7 st=1256;
+  
+  
+ if (Bluetooth_Parser( Bluetooth_Answer1) != NULL) 
+ {
+   SendString_InUnit("\r\nBLACKBOX CONNECT OK\r\n" , Bluetooth);
+  
+   Reset_rxDMA_ClearBufer(Bluetooth);
+     
+ }
+
+ 
+ if (strstr(Bluetooth_RxBuffer , "PLANSHET\r\n") != NULL) 
+ {
+    SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
+    
+    
+        SendString_InUnit(SERIAL_NUMBER , Bluetooth);
+        SendString_InUnit(PHONE_NUMBER , Bluetooth); 
+        SendString_InUnit(RMC ,Bluetooth); 
+        
+        sprintf(out1 , ",%4d", st)
+        SendString_InUnit(out1 , Bluetooth); 
+        
+        SendString_InUnit(",imei:", Bluetooth); //Заголовок imei
+        SendString_InUnit(IMEI , Bluetooth);
+        SendString_InUnit(",101\\x8D\r\n", Bluetooth);
+   
+   
+   
+   
+    //SendString_InUnit("Latitude: " , Bluetooth);
+    //SendString_InUnit(Latitude , Bluetooth);
+    //SendString_InUnit("\r\nLongitude: " , Bluetooth);
+    //SendString_InUnit(Longitude , Bluetooth);
+   Reset_rxDMA_ClearBufer(Bluetooth); 
+ } 
+  
+  
+}
+
+
+char *Bluetooth_Parser( const char *answer)
+{
+ uint16_t j; //Счетчик
+ uint16_t k; //Счетчик 2
+ uint8_t l; 
+ char const *ans;
+ char *out;  
+ uint8_t size;
+ 
+ out=NULL;
+ size=*answer++;
+ 
+for (j=0 ; j<RX_BufferSize ; j++)
+  {
+    if (Bluetooth_RxBuffer[j]==*answer)
+    {
+     k=j;
+     k++;
+     ans=answer;
+     ans++;
+     for (l=2 ; l<size ; l++)
+     {
+       if (Bluetooth_RxBuffer[k++]==*ans++) out=&Bluetooth_RxBuffer[j];
+       else {
+             out=NULL;
+             break;
+            }
+     }
+     if (out!=NULL) return out;
+     
+    }
+  
+  }
+  
+  return NULL;
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

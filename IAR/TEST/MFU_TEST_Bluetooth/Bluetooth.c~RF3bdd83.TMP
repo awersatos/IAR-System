@@ -1,0 +1,108 @@
+/*******************************************************************************
+********************************************************************************
+**                                                                            **
+**          БИБЛИОТЕКА ФУНКЦИЙ МОДУЛЯ Bluetooth LMX9838                       **
+**                                                                            **
+********************************************************************************
+*******************************************************************************/
+
+//******************Подключаемые файлы******************************************
+#include "Bluetooth.h"
+#include "main.h"
+#include <string.h>
+//*************Инициализация глобальных переменных******************************
+
+const char Bluetooth_Answer1[6] = {0x02,0x69,0x0C,0x07,0x00,0x7C};
+uint16_t cnt;
+
+//*****************Функции для работы с Bluetooth ******************************
+
+void Bluetooth_Configuration(void) //Функция инициализации Bluetooth
+{
+GPIO_SetBits(BLUETOOTH , BLUE_RESET); //Выводим Bluetooth из состояния сброса  
+ delay_ms(1000); 
+ for(cnt=0;cnt<RX_BufferSize;cnt++) Bluetooth_RxBuffer[cnt]=0xFF;
+}
+
+
+void Bluetooth_Read(void) //Функция чтения буфера Bluetooth
+{
+ if (Bluetooth_Parser( Bluetooth_Answer1) != NULL) 
+ {
+   SendString_InUnit("\r\nBLACKBOX CONNECT OK\r\n" , Bluetooth);
+  
+  for(cnt=0;cnt<RX_BufferSize;cnt++) Bluetooth_RxBuffer[cnt]=0xFF;   
+ }
+
+ /*
+ if (strstr(Bluetooth_RxBuffer , "PLANSHET\r\n") != NULL) 
+ {
+   SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
+ 
+  for(cnt=0;cnt<RX_BufferSize;cnt++) Bluetooth_RxBuffer[cnt]=0xFF;   
+ } 
+ */ 
+  
+}
+
+
+char *Bluetooth_Parser(const char *answer)
+{
+ uint16_t j; //Счетчик
+ uint16_t k; //Счетчик 2
+ uint8_t l; 
+ char *ans;
+ char *out;  
+ uint8_t size;
+ 
+ out=NULL;
+ size=*answer++;
+ 
+for (j=0 ; j<RX_BufferSize ; j++)
+  {
+    if (Bluetooth_RxBuffer[j]==*answer)
+    {
+     k=++j;
+     ans=++answer;
+     for (l=2 ; l<size ; l++)
+     {
+       if (Bluetooth_RxBuffer[k++]==*ans++) out=&Bluetooth_RxBuffer[j];
+       else {
+             out=NULL;
+             break;
+            }
+     }
+     if (out!=NULL) return out;
+     
+    }
+  
+  }
+  
+  return NULL;
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
