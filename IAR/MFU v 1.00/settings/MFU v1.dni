@@ -24,7 +24,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-329329014
+Checksum=1409015697
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -86,6 +86,10 @@ ActionState=1
 [Trace1]
 Enabled=0
 ShowSource=1
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -93,18 +97,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[CallStackLog]
-Enabled=0
-[DriverProfiling]
-Enabled=0
-Mode=0
-Graph=0
-Symbiont=0
-Exclusions=
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Count=0
 [Aliases]
 A0=_ "E:\000\IAR\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s" "E:\IAR\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s"
 A1=_ "E:\IAR\MFU v 1.00-WIN7\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c" "E:\IAR\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c"
@@ -115,3 +107,11 @@ A5=_ "F:\IAR\MFU v 1.00\main.c" "E:\IAR\MFU v 1.00\main.c"
 A6=_ "F:\IAR\MFU v 1.00\stm32f10x_it.c" "E:\IAR\MFU v 1.00\stm32f10x_it.c"
 Count=7
 SuppressDialog=1
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=0
+Graph=0
+Symbiont=0
+Exclusions=

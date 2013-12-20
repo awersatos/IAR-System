@@ -728,8 +728,8 @@ TIM_ITConfig(TIM6 , TIM_IT_Update , ENABLE); //Запрос на прерывание по переполне
 
 TIM_TimeBaseStructInit(&TIM_TimeBaseStructure); //Очистка полей структуры
 
-TIM_TimeBaseStructure.TIM_Prescaler = 24000;   //Предделитель  
-TIM_TimeBaseStructure.TIM_Period = 24000 ;  //Период счета  
+TIM_TimeBaseStructure.TIM_Prescaler = 36000;   //Предделитель  
+TIM_TimeBaseStructure.TIM_Period = 36000 ;  //Период счета  
 TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //Режим работы таймера
 TIM_TimeBaseInit(TIM7, &TIM_TimeBaseStructure); //Передаем структуру в функцию
 

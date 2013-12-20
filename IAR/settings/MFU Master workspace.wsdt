@@ -27,7 +27,7 @@
     <Windows>
       
       
-    <Wnd0>
+    <Wnd3>
         <Tabs>
           <Tab>
             <Identity>TabID-32110-329</Identity>
@@ -35,24 +35,24 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>&lt;ws&gt;</ExpandedNode><ExpandedNode>&lt;ws&gt;/MFU v1.00</ExpandedNode><ExpandedNode>Brelok_MFU v 1.00</ExpandedNode><ExpandedNode>MFU v1.00</ExpandedNode><ExpandedNode>MFU v1.00/CMSIS</ExpandedNode><ExpandedNode>MFU v1.00/EEPROM</ExpandedNode><ExpandedNode>MFU v1.00/EWARM</ExpandedNode><ExpandedNode>MFU v1.00/Libraries</ExpandedNode><ExpandedNode>MFU v1.00/Libraries/inc</ExpandedNode><ExpandedNode>MFU v1.00/USER</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>&lt;ws&gt;</ExpandedNode><ExpandedNode>&lt;ws&gt;/MFU v1.00</ExpandedNode><ExpandedNode>Brelok_MFU v 1.00</ExpandedNode><ExpandedNode>MFU v1.00</ExpandedNode><ExpandedNode>MFU v1.00/CMSIS</ExpandedNode><ExpandedNode>MFU v1.00/EEPROM</ExpandedNode><ExpandedNode>MFU v1.00/EWARM</ExpandedNode><ExpandedNode>MFU v1.00/USER</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd0></Windows>
+      <SelectedTab>0</SelectedTab></Wnd3><Wnd4><Tabs><Tab><Identity>TabID-22511-12030</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd4><Wnd5><Tabs><Tab><Identity>TabID-25941-12171</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd5></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Brelok_MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>3354</SelStart2><SelEnd2>3354</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Brelok_MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_ld_vl.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>120</YPos2><SelStart2>7017</SelStart2><SelEnd2>7017</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>51</YPos2><SelStart2>2700</SelStart2><SelEnd2>2700</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>54</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>127</YPos2><SelStart2>7210</SelStart2><SelEnd2>7210</SelEnd2></Tab><ActiveTab>4</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\GSM.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>287</YPos2><SelStart2>10207</SelStart2><SelEnd2>10207</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>699</YPos2><SelStart2>38588</SelStart2><SelEnd2>38588</SelEnd2></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>90</YPos2><SelStart2>4575</SelStart2><SelEnd2>4575</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>514</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-02131ba8><key>iaridepm.enu1</key></Toolbar-02131ba8></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>897</Bottom><Right>319</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>250781</sizeVertCX><sizeVertCY>954352</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-00ed2ec0><key>iaridepm.enu1</key></Toolbar-00ed2ec0></Sizes></Row0></Top><Left><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>501</Bottom><Right>319</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>250781</sizeVertCX><sizeVertCY>533970</sizeVertCY></Rect></Wnd3></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>200</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>212314</sizeVertCY></Rect></Wnd4></Sizes></Row0><Row1><Sizes><Wnd5><Rect><Top>196</Top><Left>-2</Left><Bottom>396</Bottom><Right>1282</Right><x>-2</x><y>196</y><xscreen>1284</xscreen><yscreen>200</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>212314</sizeVertCY></Rect></Wnd5></Sizes></Row1></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 
