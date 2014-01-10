@@ -26,9 +26,9 @@ uint8_t BT_Timer; //Счетчик дедтайма Bluetooth
 void Bluetooth_Configuration(void) //Функция инициализации Bluetooth
 {
 GPIO_ResetBits(BLUETOOTH , BLUE_RESET);//Сбрасываем модуль
- delay_ms(100);
+ delay_ms(250);
 GPIO_SetBits(BLUETOOTH , BLUE_RESET); //Выводим Bluetooth из состояния сброса  
- delay_ms(100); 
+ //delay_ms(100); 
   Reset_rxDMA_ClearBufer(Bluetooth);
   
   BT_Timer=10;
