@@ -214,22 +214,29 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
         SendString_InUnit("Host: avtoblackbox.com\r\n" , GSM);
         SendString_InUnit("Content-Type: application/x-www-form-urlencoded\r\n" , GSM);
         
+        if(STATUS.CoordinatesStatus == 'A')
+        { 
         if(Speed[rmc_buf][3] == 0x00) SendString_InUnit("Content-Length: 136\r\n" , GSM);
         else{
              if(Speed[rmc_buf][4] == 0x00) SendString_InUnit("Content-Length: 137\r\n" , GSM);
-             else SendString_InUnit("Content-Length: 138\r\n" , GSM); 
+             else SendString_InUnit("Content-Length: 138\r\n" , GSM);             
             }
+        }
+        else SendString_InUnit("Content-Length: 86\r\n" , GSM);
+        
         SendString_InUnit("\r\n" , GSM); //Конец строки
                     /*********/
         
         SendString_InUnit("utc_time=" , GSM); //Передача времени
         SendString_InUnit(&(Timestamp[rmc_buf][0]) , GSM);
         
-        SendString_InUnit("&lat=" , GSM); //Передача широты
-        SendString_InUnit(&(Latitude[rmc_buf][0]) , GSM); 
+        if(STATUS.CoordinatesStatus == 'A')
+        { SendString_InUnit("&lat=" , GSM); //Передача широты
+        SendString_InUnit(&(Latitude[rmc_buf][0]) , GSM); }
         
-        SendString_InUnit("&lon=" , GSM); //Передача долготы
-        SendString_InUnit(&(Longitude[rmc_buf][0]) , GSM);
+        if(STATUS.CoordinatesStatus == 'A')
+        {SendString_InUnit("&lon=" , GSM); //Передача долготы
+        SendString_InUnit(&(Longitude[rmc_buf][0]) , GSM);}
         
         SendString_InUnit("&imei=" , GSM); //Передача IMEI
         SendString_InUnit(IMEI , GSM);
@@ -244,58 +251,17 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
         SendString_InUnit("&phone=" , GSM); //Передача телефонного  номера
         SendString_InUnit(PHONE_NUMBER , GSM);
         
-        SendString_InUnit("&speed=" , GSM); //Передача скорости  
-        SendString_InUnit(&(Speed[rmc_buf][0]) , GSM);
+        if(STATUS.CoordinatesStatus == 'A')
+        {SendString_InUnit("&speed=" , GSM); //Передача скорости  
+        SendString_InUnit(&(Speed[rmc_buf][0]) , GSM);}
         
-        SendString_InUnit("&date=" , GSM); //Передача даты  
-        SendString_InUnit(&(Date[rmc_buf][0]) , GSM);
+        if(STATUS.CoordinatesStatus == 'A')
+        {SendString_InUnit("&date=" , GSM); //Передача даты  
+        SendString_InUnit(&(Date[rmc_buf][0]) , GSM);}
         
         SendString_InUnit("\r\n" , GSM); //Конец строки
         SendString_InUnit("\r\n" , GSM); //Конец строки
-        //delay_ms(6000);
-  /**********************************************************************       
-       // 
-        SendString_InUnit(SERIAL_NUMBER , GSM); //Серийный номер
-        SendString_InUnit(PHONE_NUMBER , GSM); //Номер телефона
-        
-       if(rmc_buf == 0) SendString_InUnit(RMC , GSM); //Сообщение RMC
-       else
-       {
-         switch(rmc_buf)
-         {
-         case 1 :
-            SendString_InUnit(RMC_1 , GSM); //Сообщение RMC
-            break;
-            
-         case 2 :
-            SendString_InUnit(RMC_2 , GSM); //Сообщение RMC
-            break;
-           
-         case 3 :
-            SendString_InUnit(RMC_3 , GSM); //Сообщение RMC
-            break;
-            
-         case 4 :
-            SendString_InUnit(RMC_4 , GSM); //Сообщение RMC
-            break; 
-            
-         case 5 :
-            SendString_InUnit(RMC_5 , GSM); //Сообщение RMC
-            break;    
-            
-            
-         }
-       }
-        
-        sprintf(out , ",%04d", state);
-        SendString_InUnit(out ,GSM); 
-        
-        SendString_InUnit(",imei:", GSM); //Заголовок imei
-        SendString_InUnit(IMEI , GSM); //IMEI модема 
-        SendString_InUnit(",101\\x8D\r\n", GSM);//Конец сообщения
-      //  delay_ms(3000);
-        
-    *********************************************************************/    
+       
          for (cntr=0;cntr<13;cntr++)
          {
            

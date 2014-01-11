@@ -11,15 +11,9 @@
 #include "navigation.h"
 #include "main.h"
 #include <string.h>
+#include <ctype.h>
 //*************Инициализация глобальных переменных******************************
-/*
-char RMC[66]; //Массив сообщения RMC
-char RMC_1[66]; //Массив сообщения RMC
-char RMC_2[66]; //Массив сообщения RMC
-char RMC_3[66]; //Массив сообщения RMC
-char RMC_4[66]; //Массив сообщения RMC
-char RMC_5[66]; //Массив сообщения RMC
-*/
+
 char Timestamp[6][11]; //Время снятия координат
 char Latitude[6][9]; //Широта 
 char Longitude[6][10]; //Долгота
@@ -29,8 +23,8 @@ char Date[6][7]; //Дата
                /*Таблица команд и словарь ответов для навигатора*/
 const char NAVI_Comand1[] = "$PSTMSETPAR,1201,0040*1D\r\n"; //Включить только сообщения RMC
 const char NAVI_Comand2[] = "$PSTMSAVEPAR*58\r\n";  //Сохранить параметры в энергонезависимую память
-const char NAVI_Answer1[] = "$PSTMSETPAROK"; //Ответ о том что установка параметров успешна
-const char NAVI_Answer2[] = "$GPRMC"; //Заголовок сообщения RMC
+
+
 
 //**************Функции для работы с навигатором********************************
 void NAVI_Configuration(void)   //Инициализация навигационного приемника
@@ -45,7 +39,7 @@ void NAVI_Configuration(void)   //Инициализация навигационного приемника
  SendString_InUnit(NAVI_Comand1 , Navigator); //Отправка команды "Только RMC"
  delay_ms(10); //Ожидание 10мС
 
- if (strstr(Navi_RxBuffer , NAVI_Answer1)!=NULL) //Если ответ положительный
+ if (strstr(Navi_RxBuffer , "$PSTMSETPAROK")!=NULL) //Если ответ положительный
  {
   SendString_InUnit(NAVI_Comand2 , Navigator); //Отправка команды сохранение параметров 
  }
@@ -55,69 +49,78 @@ void NAVI_Configuration(void)   //Инициализация навигационного приемника
  IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера   
 }
 
-
+//======================================================================================
 void ReadCoordinates(void) //Функция считывания координат
 {
-char *s, *s1; //Объявляем ссылочную переменную
+char *s; //Объявляем ссылочную переменную
 uint8_t i; //Счетчик
 
-s = strstr(Navi_RxBuffer , NAVI_Answer2); //Ищем в буфере заголовок сообщения RMC
+s = strstr(Navi_RxBuffer , "$GPRMC"); //Ищем в буфере заголовок сообщения RMC
 if(s!=NULL)                               //Если строка в буфере присутствует
 {
   
-  if(strchr(Navi_RxBuffer , 'A')!=NULL) //Определяем валилны ли координатные данные
-  {
-   STATUS.CoordinatesStatus = 'A'; //Устанавливаем статус валидных координат
+ // if(strchr(Navi_RxBuffer , 'A')!=NULL) //Определяем валилны ли координатные данные
+  
+   //
    
-   s++;
-   s1 = s+6; //Устанавливаем адрес ссылочной переменной на начало времени
+  // s++;
+   s = s+7; //Устанавливаем адрес ссылочной переменной на начало времени
    
-  // for(i=0;i<65;i++) RMC[i]=*s++; //Заполнение буфера RMC
-  //********************************************************************** 
-   
-   for(i=0;i<11;i++) Timestamp[0][i] = 0x00; //стирание приемного буфера
+  
+       /*Очистка приемных буферов*/
+   for(i=0;i<11;i++) Timestamp[0][i] = 0x00; 
    for(i=0;i<6;i++) Speed[0][i] = 0x00;
    for(i=0;i<9;i++) Latitude[0][i] = 0x00;
    for(i=0;i<10;i++) Longitude[0][i] = 0x00;
    for(i=0;i<7;i++) Date[0][i] = 0x00; 
    
-   for(i=0;i<10;i++) Timestamp[0][i] = *s1++; //Заполняем массив времени 
+   for(i=0;i<10;i++) Timestamp[0][i] = *s++; //Заполняем массив времени 
+  
+   s++; //Устанавливаем адрес на статус валидности координат 
    
-   s1=s1+3;                                //Устанавливаем адрес ссылочной переменной на начало широты
-   for(i=0;i<8;i++) Latitude[0][i] = *s1++; //Заполняем массив широты
+   if(*s == 'A') //Если координаты валидны
+   {
+   STATUS.CoordinatesStatus = 'A'; //Устанавливаем статус валидных координат 
    
-   s1=s1+3;                                   //Устанавливаем адрес ссылочной переменной на начало долготы
-   for(i=0;i<9;i++) Longitude[0][i] = *s1++; //Заполняем массив долготы  
-   s1=s1+3; //Переставляем адрес на начало скорости
+   s=s+2;                                //Устанавливаем адрес ссылочной переменной на начало широты   
+   for(i=0;i<8;i++) Latitude[0][i] = *s++; //Заполняем массив широты
+   
+            /*Валидация массива широты*/
+   for(i=0;i<4;i++) if(isdigit(Latitude[0][i]) != 1) STATUS.CoordinatesStatus = 'V';
+   if(Latitude[0][4] != '.') STATUS.CoordinatesStatus = 'V';
+   for(i=5;i<8;i++) if(isdigit(Latitude[0][i]) != 1) STATUS.CoordinatesStatus = 'V';
+   
+   s=s+3; //Устанавливаем адрес ссылочной переменной на начало долготы
+   for(i=0;i<9;i++) Longitude[0][i] = *s++; //Заполняем массив долготы 
+   
+   /*Валидация массива долготы*/
+   for(i=0;i<5;i++) if(isdigit(Longitude[0][i]) != 1) STATUS.CoordinatesStatus = 'V';
+   if(Longitude[0][5] != '.') STATUS.CoordinatesStatus = 'V';
+   for(i=6;i<9;i++) if(isdigit(Longitude[0][i]) != 1) STATUS.CoordinatesStatus = 'V';
+   
+   
+   
+   s=s+3; //Переставляем адрес на начало скорости
    
    for(i=0;i<5;i++) //заполняем массив скорости
    {
-    Speed[0][i] = *s1++;
-    if(*s1 == ',') break;
+    Speed[0][i] = *s++;
+    if(*s == ',') break;
      
    }
    for(i=0;i<6;i++)
-   {s1++; //Переставляем адрес на начало даты
-   if(*s1 == ',') break;}
-   s1++;
-   for(i=0;i<6;i++) Date[0][i] = *s1++; //Заполняем массив даты
-  }
+   {s++; //Переставляем адрес на начало даты
+   if(*s == ',') break;}
+   s++;
+   for(i=0;i<6;i++) Date[0][i] = *s++; //Заполняем массив даты
+   for(i=0;i<6;i++) if(isdigit(Date[0][i]) != 1) STATUS.CoordinatesStatus = 'V';
   
-  else if(strchr(Navi_RxBuffer , 'V')!=NULL)  STATUS.CoordinatesStatus = 'V'; //Если координаты не валидны устанавливаем соответствующий статус 
+   }
+   else if(*s == 'V')  STATUS.CoordinatesStatus = 'V'; //Если координаты не валидны устанавливаем соответствующий статус 
  
   
 } 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

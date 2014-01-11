@@ -10,6 +10,9 @@
   <project>
     <path>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_AES\TEST_AES.ewp</path>
   </project>
+  <project>
+    <path>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Test_tahometr.ewp</path>
+  </project>
   <batchBuild/>
 </workspace>
 

@@ -1,0 +1,15 @@
+POST /bb/status HTTP/1.1
+Host: abbox.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 137
+
+s_n=9876543210&imei=355915032997629&phone=9236723421&speed=10.0&lat=2235.0239&lon=11413.0766&date=081113&utc_time=103149.012&command=0000
+
+//*********************************************************************************************************
+
+POST /bb/status HTTP/1.1
+Host: abbox.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 86
+
+s_n=9876543210&imei=355915032997629&phone=79236723421&utc_time=103149.012&command=0000

@@ -1,0 +1,91 @@
+[3:41:02] Victor Ryabtsev: Сделал обработчик http. Пример строки:
+
+POST /bb/status HTTP/1.1
+Host: avtoblackbox.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 121
+
+s_n=1234&imei=54321&phone=9236723421&speed=10.0&lat=2235.0239&lon=11413.0766&date=081113&utc_time=103149.012&command=1400
+
+Все поля являются обязательными. Возможные ошибки:
+
+ER4100 - ошибка валидации входных данных
+ER4101 - не найдена машина по imei
+ER4102 - ошибка сохранения в базу
+
+Для удобства отладки сейчас можно делать также GET запросы с теми же параметрами в браузере, например:
+http://avtoblackbox.com/bb/status?s_n=1234&imei=54321&phone=9236723421&speed=10.0&lat=2235.0239&lon=11413.0766&date=081113&utc_time=103149.012&command=1400
+
+Еще для большего удобства сделал такую фичу: если к параметрам добавить "test=1" , то в случае ошибок, они покажутся текстом (дамп php массива). Пример:
+http://avtoblackbox.com/bb/status?s_n=1234&imei=54321&phone=9236723421&speed=10.0&lat=wrong_lat&lon=11413.0766&date=081113&utc_time=103149.012&command=1400&test=1
+Результат: ER4100Array ( [lat] => Array ( [0] => Latitude должен быть числом. [1] => Latitude не верен. ) )
+
+Также по модели БД я сгенерил CRUD для записей (требуется авторизация):
+http://avtoblackbox.com/event
+
+Там timestamp - время, полученное из сообщения (считается по utc_time и date). Этот интерфейс только для тестов
+
+Данный обработчик уже работает с командами (они появляются в соответствующем раздел и исполняются). Старый обработчик работает, как раньше. Завтра добавлю карту google
+
+
+Сделал обработчик для баланса. Пример строки:
+
+POST /bb/balance HTTP/1.1
+Host: avtoblackbox.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 60
+
+s_n=123&imei=54321&sim1=15.23RUR&sim2=22.13RUR&sim3=33.23RUR
+
+sim1, sim2, sim3 - необязательные поля. "RUR" тоже можно упускать. Возможные ошибки:
+
+ER4100 - ошибка валидации входных данных
+ER4101 - не найдена машина по imei
+ER4102 - ошибка сохранения в базу
+
+Для удобства отладки сейчас можно делать также GET запросы с теми же параметрами в браузере, например:
+http://avtoblackbox.com/bb/balance?s_n=123&imei=54321&sim1=15.23RUR&sim2=22.13RUR&sim3=33.23RUR
+Еще для большего удобства сделал такую фичу: если к параметрам добавить "test=1" , то в случае ошибок, они покажутся текстом (дамп php массива). Пример:
+http://avtoblackbox.com/bb/balance?s_n=123&imei=54321&sim1=xxxxxxxx&sim2=22.13RUR&sim3=33.23RUR&test=1
+Результат: ER4100Array ( [sim1] => Array ( [0] => Баланс основной SIM должен быть числом. ) )
+
+Потом можно посмотреть баланс на странице с авто, которую я прикрутил в новый дизайн:  
+http://avtoblackbox.com/car/7 
+
+
+//------------------------------------------------------------------------------------------------
+
+POST /bb/balance HTTP/1.1
+Host: avtoblackbox.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 75
+
+s_n=1231231230&imei=355915032993545&sim1=62RUR&sim2=198.20RUR&sim3=94.40RUR
+
+//---------------------------------------------------------------------------------------------------------------------
+Алексей 29,12,2013
+
+POST /bb/balance HTTP/1.1
+Host: abbox.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 72
+
+s_n=1231231230&imei=355915032993545&sim1=58.25RUR&sim2=198.20RUR&sim3=94.40RUR
+
+//--------------------------------------------------------------------------------------------------------------------
+Дмитрий 29,12,2013
+
+POST /bb/balance HTTP/1.1
+Host: abbox.ru
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 77
+
+s_n=5343210543&imei=355915032993602&sim1=37.20RUR&sim2=96.60RUR&sim3=92.20RUR
+
+
+
+
+
+
+
+

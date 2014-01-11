@@ -5,7 +5,7 @@
     
     
     
-  <CurrentConfigs><Project>MFU v1.00/Debug</Project><Project>Brelok_MFU v 1.00/Debug</Project><Project>TEST_AES/Debug</Project></CurrentConfigs><CurrentProj>MFU v1.00</CurrentProj><OverviewSelected>0</OverviewSelected></ConfigDictionary>
+  <CurrentConfigs><Project>MFU v1.00/Debug</Project><Project>Brelok_MFU v 1.00/Debug</Project><Project>TEST_AES/Debug</Project><Project>Test_tahometr/Debug</Project></CurrentConfigs><CurrentProj>Test_tahometr</CurrentProj><OverviewSelected>0</OverviewSelected></ConfigDictionary>
   <Desktop>
     <Static>
       <Workspace>
@@ -27,7 +27,7 @@
     <Windows>
       
       
-    <Wnd2>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-32110-329</Identity>
@@ -35,24 +35,24 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>&lt;ws&gt;</ExpandedNode><ExpandedNode>&lt;ws&gt;/MFU v1.00</ExpandedNode><ExpandedNode>Brelok_MFU v 1.00</ExpandedNode><ExpandedNode>MFU v1.00</ExpandedNode><ExpandedNode>MFU v1.00/CMSIS</ExpandedNode><ExpandedNode>MFU v1.00/EEPROM</ExpandedNode><ExpandedNode>MFU v1.00/EWARM</ExpandedNode><ExpandedNode>MFU v1.00/USER</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>&lt;ws&gt;</ExpandedNode><ExpandedNode>&lt;ws&gt;/TEST_AES</ExpandedNode><ExpandedNode>&lt;ws&gt;/TEST_AES/CMSIS</ExpandedNode><ExpandedNode>&lt;ws&gt;/TEST_AES/EWARM</ExpandedNode><ExpandedNode>&lt;ws&gt;/TEST_AES/Libraries</ExpandedNode><ExpandedNode>&lt;ws&gt;/Test_tahometr</ExpandedNode><ExpandedNode>&lt;ws&gt;/Test_tahometr/CMSIS</ExpandedNode><ExpandedNode>&lt;ws&gt;/Test_tahometr/EWARM</ExpandedNode><ExpandedNode>&lt;ws&gt;/Test_tahometr/Libraries</ExpandedNode><ExpandedNode>&lt;ws&gt;/Test_tahometr/STM32-DISCOVERY</ExpandedNode><ExpandedNode>Brelok_MFU v 1.00</ExpandedNode><ExpandedNode>MFU v1.00</ExpandedNode><ExpandedNode>MFU v1.00/CMSIS</ExpandedNode><ExpandedNode>MFU v1.00/EEPROM</ExpandedNode><ExpandedNode>MFU v1.00/EWARM</ExpandedNode><ExpandedNode>MFU v1.00/USER</ExpandedNode><ExpandedNode>TEST_AES</ExpandedNode><ExpandedNode>TEST_AES/User</ExpandedNode><ExpandedNode>Test_tahometr</ExpandedNode><ExpandedNode>Test_tahometr/CMSIS</ExpandedNode><ExpandedNode>Test_tahometr/STM32-DISCOVERY</ExpandedNode><ExpandedNode>Test_tahometr/User</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd2></Windows>
+      <SelectedTab>0</SelectedTab></Wnd0></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>878</YPos2><SelStart2>47128</SelStart2><SelEnd2>47128</SelEnd2></Tab><ActiveTab>0</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>5381</SelStart2><SelEnd2>5381</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\GSM.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>959</SelStart2><SelEnd2>959</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\navigation.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>133</YPos2><SelStart2>7210</SelStart2><SelEnd2>7210</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>582</YPos2><SelStart2>25034</SelStart2><SelEnd2>25034</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Bluetooth.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>12</YPos2><SelStart2>1316</SelStart2><SelEnd2>1316</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>301</SelStart2><SelEnd2>301</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\main.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>576</SelStart2><SelEnd2>576</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>24</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>54</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Utilities\STM32vldiscovery.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>31</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\stm32f10x_it.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>78</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\TEST\STM32-DISCOVERY\TEST_TAHOMETR\Utilities\STM32vldiscovery.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>21</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><ActiveTab>7</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-01b25898><key>iaridepm.enu1</key></Toolbar-01b25898></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>897</Bottom><Right>319</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>250781</sizeVertCX><sizeVertCY>954352</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-01dd5898><key>iaridepm.enu1</key></Toolbar-01dd5898></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>897</Bottom><Right>319</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>156250</sizeHorzCX><sizeHorzCY>212314</sizeHorzCY><sizeVertCX>250781</sizeVertCX><sizeVertCY>954352</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

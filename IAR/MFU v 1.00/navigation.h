@@ -9,14 +9,7 @@
 #define NAVI_RESET GPIO_Pin_13
 
 //************* Инициализация глобальных переменных ****************************
-/*
-extern char RMC[66]; //Массив сообщения RMC
-extern char RMC_1[66]; //Массив сообщения RMC
-extern char RMC_2[66]; //Массив сообщения RMC
-extern char RMC_3[66]; //Массив сообщения RMC
-extern char RMC_4[66]; //Массив сообщения RMC
-extern char RMC_5[66]; //Массив сообщения RMC
-*/
+
 extern char Timestamp[6][11]; //Время снятия координат
 extern char Latitude[6][9]; //Широта 
 extern char Longitude[6][10]; //Долгота
