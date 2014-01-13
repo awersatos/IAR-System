@@ -140,16 +140,17 @@ SendData_onServer(0,0);
     period = 300;
     
   Transceiver_Configuration(); //Инициализация трансивера
+  if(Navi_ResetCounter > 12) NAVI_Reset();
   
     if(STATUS.MainPower==ENABLE) SendData_onServer(0,0);
     else SendData_onServer((1200+STATUS.BatteryCharge), 0);
     
          /*Проверка резервных буферов*/
      if(Timestamp[1][0]  != 0) SendData_onServer(0,1);
-     if(Timestamp[2][0]  != 0) SendData_onServer(0,2);
-     if(Timestamp[3][0]  != 0) SendData_onServer(0,3);
-     if(Timestamp[4][0]  != 0) SendData_onServer(0,4);
-     if(Timestamp[5][0]  != 0) SendData_onServer(0,5);
+     else if(Timestamp[2][0]  != 0) SendData_onServer(0,2);
+          else if(Timestamp[3][0]  != 0) SendData_onServer(0,3);
+               else if(Timestamp[4][0]  != 0) SendData_onServer(0,4);
+                    else if(Timestamp[5][0]  != 0) SendData_onServer(0,5);
    }
  }
  
