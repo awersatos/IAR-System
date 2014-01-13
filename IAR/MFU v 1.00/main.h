@@ -91,6 +91,7 @@ extern char Navi_TxBuffer[TX_BufferSize+1];      //Передающий Navigation буфер U
 extern char Navi_RxBuffer[RX_BufferSize+1];      //Приемный Navigation буфер USART3
 
 extern uint16_t sec_cnt;
+extern uint16_t period;
 //*************Объявление испльзуемых функций***********************************
 void delay_ms(uint16_t msec); //Задержка в милисекундах
 void delay_us(uint32_t usec); //Задержка в микросекундах

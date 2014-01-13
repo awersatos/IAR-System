@@ -222,7 +222,12 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
              else SendString_InUnit("Content-Length: 138\r\n" , GSM);             
             }
         }
-        else SendString_InUnit("Content-Length: 86\r\n" , GSM);
+        else 
+        {
+          period = 30;
+          SendString_InUnit("Content-Length: 86\r\n" , GSM);
+          
+        }
         
         SendString_InUnit("\r\n" , GSM); //Конец строки
                     /*********/
@@ -330,7 +335,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
  STATUS.EVENT_BUF[0] = state;
  }
        /*Запись данных в резервный буфер*/
- else
+ else if(STATUS.CoordinatesStatus == 'A')
  {
   if(Timestamp[1][0] == 0)
   {

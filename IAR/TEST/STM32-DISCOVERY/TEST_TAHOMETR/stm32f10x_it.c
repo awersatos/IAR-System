@@ -23,7 +23,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
-
+#include "STM32vldiscovery.h"
+#include "main.h"
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -142,6 +143,32 @@ void SysTick_Handler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f10x_xx.s).                                            */
 /******************************************************************************/
+
+void EXTI0_IRQHandler(void)
+{
+  if(EXTI_GetITStatus(USER_BUTTON_EXTI_LINE) != RESET)
+  {
+    /* Toggle LED3 */
+     STM32vldiscovery_LEDToggle(LED3);
+     if(GPIO_ReadOutputDataBit(GPIOC, GPIO_Pin_9) == 1) 
+     {TIM_PrescalerConfig(TIM3, Motor_run, TIM_PSCReloadMode_Update);
+      Motor_Status = ENABLE;
+     }
+     else 
+     {TIM_PrescalerConfig(TIM3, Motor_start, TIM_PSCReloadMode_Update);
+     Motor_Status = DISABLE;
+     }
+     
+     
+           
+    /* Clear the User Button EXTI line pending bit */
+    EXTI_ClearITPendingBit(USER_BUTTON_EXTI_LINE);
+  }
+}
+
+
+
+
 
 /**
   * @brief  This function handles PPP interrupt request.

@@ -53,6 +53,7 @@ char Navi_TxBuffer[TX_BufferSize+1];      //Передающий Navigation буфер USART3
 char Navi_RxBuffer[RX_BufferSize+1];      //Приемный Navigation буфер USART3
 
 uint16_t sec_cnt=0;
+uint16_t period=300;
  
 //******************************************************************************
 
@@ -133,12 +134,16 @@ SendData_onServer(0,0);
   }
   
    
-   if(sec_cnt>300)
+   if(sec_cnt > period)
    {
-    sec_cnt=0;
+    sec_cnt = 0;
+    period = 300;
+    
   Transceiver_Configuration(); //Инициализация трансивера
+  
     if(STATUS.MainPower==ENABLE) SendData_onServer(0,0);
     else SendData_onServer((1200+STATUS.BatteryCharge), 0);
+    
          /*Проверка резервных буферов*/
      if(Timestamp[1][0]  != 0) SendData_onServer(0,1);
      if(Timestamp[2][0]  != 0) SendData_onServer(0,2);
