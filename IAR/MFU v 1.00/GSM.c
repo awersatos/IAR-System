@@ -221,12 +221,13 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
              if(Speed[rmc_buf][4] == 0x00) SendString_InUnit("Content-Length: 137\r\n" , GSM);
              else SendString_InUnit("Content-Length: 138\r\n" , GSM);             
             }
+        Navi_ResetCounter++;
         }
         else 
         {
           period = 30;
           SendString_InUnit("Content-Length: 86\r\n" , GSM);
-          
+          Navi_ResetCounter += 3;  
         }
         
         SendString_InUnit("\r\n" , GSM); //Конец строки
@@ -266,7 +267,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
         
         SendString_InUnit("\r\n" , GSM); //Конец строки
         SendString_InUnit("\r\n" , GSM); //Конец строки
-       
+/*************************Ожидание ответа от сервера***************************/       
          for (cntr=0;cntr<13;cntr++)
          {
            
@@ -293,7 +294,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
           delay_ms(1000);
           IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
          }
-         /***************************************************************************/
+ /***********************Закрытие сокета****************************************/
         delay_ms(100);   
         Reset_rxDMA_ClearBufer(GSM); //Сброс буфера
         
@@ -334,7 +335,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
  STATUS.EVENT_BUF[1] = STATUS.EVENT_BUF[0];
  STATUS.EVENT_BUF[0] = state;
  }
-       /*Запись данных в резервный буфер*/
+ /****************Запись данных в резервный буфер******************************/
  else if(STATUS.CoordinatesStatus == 'A')
  {
   if(Timestamp[1][0] == 0)

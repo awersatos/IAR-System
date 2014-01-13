@@ -20,6 +20,8 @@ char Longitude[6][10]; //Долгота
 char Speed[6][6]; //Скорость
 char Date[6][7]; //Дата 
 
+uint8_t Navi_ResetCounter; //Счетчик интервала сброса навигатора
+
                /*Таблица команд и словарь ответов для навигатора*/
 const char NAVI_Comand1[] = "$PSTMSETPAR,1201,0040*1D\r\n"; //Включить только сообщения RMC
 const char NAVI_Comand2[] = "$PSTMSAVEPAR*58\r\n";  //Сохранить параметры в энергонезависимую память
@@ -46,9 +48,22 @@ void NAVI_Configuration(void)   //Инициализация навигационного приемника
  
  STATUS.NavigatorStatus = ACTIVE; //Статус навигатора активен
 
- IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера   
+ IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера 
+ 
+ Navi_ResetCounter = 0; //Сброс счетчика
 }
-
+//================================================================================
+void NAVI_Reset(void) //Функция сброса навигатора
+{
+  STATUS.NavigatorStatus = INACTIVE; //Статус навигатора неактивен
+  
+  GPIO_ResetBits(NAVIGATOR , NAVI_RESET);//Сбрасываем навигатор
+  delay_ms(500);
+  GPIO_SetBits(NAVIGATOR , NAVI_RESET); //Выводим навигатор из состояния сброса
+  delay_ms(1000);
+  STATUS.NavigatorStatus = ACTIVE; //Статус навигатора активен
+  Navi_ResetCounter = 0; //Сброс счетчика
+}
 //======================================================================================
 void ReadCoordinates(void) //Функция считывания координат
 {

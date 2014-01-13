@@ -140,6 +140,7 @@ SendData_onServer(0,0);
     period = 300;
     
   Transceiver_Configuration(); //Инициализация трансивера
+  if(Navi_ResetCounter > 12) NAVI_Reset();
   
     if(STATUS.MainPower==ENABLE) SendData_onServer(0,0);
     else SendData_onServer((1200+STATUS.BatteryCharge), 0);
