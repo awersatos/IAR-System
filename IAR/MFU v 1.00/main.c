@@ -133,14 +133,15 @@ SendData_onServer(0,0);
    STATUS.EVENT_BUF[2] = 0; 
   }
   
-   
+   if(Navi_ResetCounter > 12) NAVI_Reset();
+  
    if(sec_cnt > period)
    {
     sec_cnt = 0;
     period = 300;
     
   Transceiver_Configuration(); //Инициализация трансивера
-  if(Navi_ResetCounter > 12) NAVI_Reset();
+ 
   
     if(STATUS.MainPower==ENABLE) SendData_onServer(0,0);
     else SendData_onServer((1200+STATUS.BatteryCharge), 0);
