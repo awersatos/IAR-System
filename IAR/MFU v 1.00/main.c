@@ -82,7 +82,7 @@ NVIC_SetPriority(SysTick_IRQn,0); //Приоритетпрерывания системного таймера наивы
 Write_Default_Setting();
 
 
-while(STATUS.MainPower == DISABLE);
+
 
 IWDG_Configuration();//Инициализация сторожевого таймера
 
@@ -93,7 +93,7 @@ NAVI_Configuration(); //Инициализация навигационного приемника
 Bluetooth_Configuration(); //Инициализация Bluetooth
 GSM_Configuration(); //Инициализация GSM
 
-
+while(STATUS.MainPower == DISABLE);
 
 
 delay_ms(500);

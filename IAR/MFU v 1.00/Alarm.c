@@ -85,7 +85,7 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
   uint8_t start_time=100; //Время работы стартера
   if(status==ENABLE) //Запуск двигателя
   { 
-   if(STATUS.SecurityStatus == DISABLE) SECURITY(ENABLE);
+  // if(STATUS.SecurityStatus == DISABLE) SECURITY(ENABLE);
     if(GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==0 ) //Проверка стояночного тормоза и включения зажигания
     {
       
