@@ -31,7 +31,7 @@ GPIO_SetBits(BLUETOOTH , BLUE_RESET); //Выводим Bluetooth из состояния сброса
  //delay_ms(100); 
   Reset_rxDMA_ClearBufer(Bluetooth);
   
-  BT_Timer=10;
+  BT_Timer=30;
   
  
 }
@@ -45,7 +45,7 @@ void Bluetooth_Read(void) //Функция чтения буфера Bluetooth
  if (Bluetooth_Parser( Bluetooth_Answer1) != NULL) 
  {
    SendString_InUnit("\r\nBLACKBOX CONNECT OK\r\n" , Bluetooth);
-   BT_Timer=10;
+   BT_Timer=30;
    Reset_rxDMA_ClearBufer(Bluetooth);
      
  }

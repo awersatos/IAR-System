@@ -118,12 +118,13 @@ SendData_onServer(0,0);
   delay_ms(1000); 
 
 
-  
+  /*
   Bluetooth_Read();
   SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
-  //ANSWER_CALL(); //Функция ответа на входящий звонок
+*/
   RECEIVE_SMS(); //Функция получения СМС сообщения
   COMAND_EXEC();  //Исполнитель команд
+ 
   
   if(STATUS.EVENT_BUF[0] !=0)
   {
