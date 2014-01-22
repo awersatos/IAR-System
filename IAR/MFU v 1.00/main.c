@@ -79,7 +79,7 @@ NVIC_SetPriority(SysTick_IRQn,0); //Приоритетпрерывания системного таймера наивы
 
 
 
-Write_Default_Setting();
+
 
 
 
@@ -98,7 +98,7 @@ while(STATUS.MainPower == DISABLE);
 
 delay_ms(500);
 SIREN_and_LIGHTS(3); //Тройное мигание фарами и звуковой сигнал
-
+Write_Default_Setting();
  
 
 
@@ -118,12 +118,13 @@ SendData_onServer(0,0);
   delay_ms(1000); 
 
 
-  
+  /*
   Bluetooth_Read();
   SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
-  //ANSWER_CALL(); //Функция ответа на входящий звонок
+*/
   RECEIVE_SMS(); //Функция получения СМС сообщения
   COMAND_EXEC();  //Исполнитель команд
+ 
   
   if(STATUS.EVENT_BUF[0] !=0)
   {

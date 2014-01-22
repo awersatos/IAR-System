@@ -557,6 +557,10 @@ void RTC_IRQHandler(void) //Прерывания от часов реального времени
   if (RTC_GetITStatus(RTC_IT_SEC) != RESET)
   {
     sec_cnt++;
+    
+    Bluetooth_Read();
+    SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
+  
     RTC_ClearITPendingBit(RTC_FLAG_SEC);    
   }
  //===============================================================================
