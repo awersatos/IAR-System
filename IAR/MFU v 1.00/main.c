@@ -79,7 +79,7 @@ NVIC_SetPriority(SysTick_IRQn,0); //Приоритетпрерывания системного таймера наивы
 
 
 
-Write_Default_Setting();
+
 
 
 
@@ -98,7 +98,7 @@ while(STATUS.MainPower == DISABLE);
 
 delay_ms(500);
 SIREN_and_LIGHTS(3); //Тройное мигание фарами и звуковой сигнал
-
+Write_Default_Setting();
  
 
 
