@@ -58,7 +58,8 @@ void SECURITY(FunctionalState stat) //Функция снятия/постановки на охрану и закр
   }
   else if(stat==DISABLE) //Команда открыть машину
   {
-    STATUS.SecurityStatus=DISABLE;
+   STATUS.SecurityStatus=DISABLE; //Установка статуса "Снято с охраны"
+    
    GPIO_SetBits(ALARM2 , DOOR_OP); //Открытие дверей
    delay_ms(1000);
    GPIO_ResetBits(ALARM2 , DOOR_OP); 
@@ -137,7 +138,7 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
   }
   
 }
-
+//========================================================================================
 void SIREN_and_LIGHTS(uint8_t flash) //Управление миганием фар и сиреной
 {
   uint8_t sirencnt;
