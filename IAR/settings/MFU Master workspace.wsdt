@@ -19,7 +19,11 @@
     <Build><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>723</ColumnWidth1><ColumnWidth2>193</ColumnWidth2><ColumnWidth3>48</ColumnWidth3></Build><TerminalIO/></Static>
     <Windows>
       
+<<<<<<< HEAD
     <Wnd2>
+=======
+    <Wnd1>
+>>>>>>> b0aa66f82644970ed13617d8c519116209c1105a
         <Tabs>
           <Tab>
             <Identity>TabID-27349-13769</Identity>
@@ -31,20 +35,32 @@
           </Tab>
         </Tabs>
         
+<<<<<<< HEAD
       <SelectedTab>0</SelectedTab></Wnd2></Windows>
+=======
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+>>>>>>> b0aa66f82644970ed13617d8c519116209c1105a
     <Editor>
       
       
       
       
+<<<<<<< HEAD
     <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>135</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\GSM.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>17</YPos2><SelStart2>1215</SelStart2><SelEnd2>1215</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Alarm.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>49</YPos2><SelStart2>2541</SelStart2><SelEnd2>2541</SelEnd2></Tab><ActiveTab>2</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+=======
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>135</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\GSM.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>40</XPos2><YPos2>0</YPos2><SelStart2>956</SelStart2><SelEnd2>956</SelEnd2></Tab><ActiveTab>1</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Alarm.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>46</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\MFU v 1.00\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>143</YPos2><SelStart2>7210</SelStart2><SelEnd2>7210</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+>>>>>>> b0aa66f82644970ed13617d8c519116209c1105a
     <Positions>
       
       
       
       
       
+<<<<<<< HEAD
     <Top><Row0><Sizes><Toolbar-01be2a00><key>iaridepm.enu1</key></Toolbar-01be2a00></Sizes></Row0></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>897</Bottom><Right>248</Right><x>-2</x><y>-2</y><xscreen>250</xscreen><yscreen>364</yscreen><sizeHorzCX>195313</sizeHorzCX><sizeHorzCY>386412</sizeHorzCY><sizeVertCX>195313</sizeVertCX><sizeVertCY>954352</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions>
+=======
+    <Top><Row0><Sizes><Toolbar-01c631b0><key>iaridepm.enu1</key></Toolbar-01c631b0></Sizes></Row0></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>473</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>195313</sizeHorzCX><sizeHorzCY>386100</sizeHorzCY><sizeVertCX>195313</sizeVertCX><sizeVertCY>916988</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes/></Row0></Bottom><Float><Sizes/></Float></Positions>
+>>>>>>> b0aa66f82644970ed13617d8c519116209c1105a
   </Desktop>
 </Workspace>
 
