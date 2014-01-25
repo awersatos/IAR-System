@@ -58,6 +58,7 @@ void SECURITY(FunctionalState stat) //Функция снятия/постановки на охрану и закр
   }
   else if(stat==DISABLE) //Команда открыть машину
   {
+    STATUS.SecurityStatus=DISABLE;
    GPIO_SetBits(ALARM2 , DOOR_OP); //Открытие дверей
    delay_ms(1000);
    GPIO_ResetBits(ALARM2 , DOOR_OP); 

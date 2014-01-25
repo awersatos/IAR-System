@@ -15,7 +15,7 @@
 #include "Alarm.h"
 //*************Инициализация глобальных переменных******************************
 const char PHONE_NUMBER[] = "+79619918106";
-const char CLIENT_PHONE_NUMBER[] = "+79134725888"; //Номер клиента
+const char CLIENT_PHONE_NUMBER[] = "+79139207097"; //Номер клиента
 
                                   /*+79139207097*/ //Дмитрий
 const char SERVER[]= "\"bb1.avtoblackbox.com\""; //Сервер
