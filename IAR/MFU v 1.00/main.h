@@ -49,6 +49,8 @@ FunctionalState GSM_Status;//Статус GSM
 
 FunctionalState GSM_DataMode; //Режим передачи данных
 
+FunctionalState MOTOR_Status; //Сдатус запуска двигателя
+
 FunctionalState AUTOSTART; //Статус автозапуска
 
 Autoheatmode_TypeDef AUTOHEAT_MODE; //Режим автозапуска

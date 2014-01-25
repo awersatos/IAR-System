@@ -41,6 +41,11 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 FunctionalState Door_alarm_state = DISABLE;
+
+uint32_t MotorControlTime , Last_MotorControlTime;
+
+
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -157,6 +162,8 @@ void SysTick_Handler(void) //Прерывание системного таймера итервал 1мкС
    }
  }
  else Door_alarm_state = DISABLE; 
+ 
+ MotorControlTime++;
 }
 
                       /*ПРЕРЫВАНИЯ ОТ ПЕРЕФИРИИ*/
@@ -465,8 +472,14 @@ void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
  
   if(EXTI_GetITStatus(EXTI_Line14) != RESET) //Линия прерывания по запуску двигателя
  {
-   
- GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
+ if((MotorControlTime - Last_MotorControlTime) < 60)
+ {
+  GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
+  STATUS.MOTOR_Status = ENABLE;
+ }
+ else STATUS.MOTOR_Status = DISABLE;
+ 
+ Last_MotorControlTime = MotorControlTime;
  EXTI_ClearITPendingBit(EXTI_Line14); //Очистка флага прерывания  
  }
   
