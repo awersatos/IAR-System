@@ -35,6 +35,7 @@ void GSM_Configuration(void) //Инициализация GSM
  uint8_t nr_sim=1;
  uint8_t x; //Счетчик
  char *im; //Ссылочная переменная для IMEI
+ 
  IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
  do {
   Reset_rxDMA_ClearBufer(GSM); //Сброс буфера 
@@ -190,9 +191,11 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
 
 
   // Если выбрана не 1 сим карта или нет регистрации в сети то перезапуск модема и поиск доступной сети
-  if((STATUS.SIM_Card!=1) || (REG_NET()!='R')) GSM_Configuration();  
+  if((STATUS.SIM_Card!=1) || (REG_NET()!='R')) GSM_Configuration();   
   Reset_rxDMA_ClearBufer(GSM); //Сброс буфера
-  
+   
+for(uint8_t cnt=0;cnt<3;cnt++) //Счетчик попыток передачи
+  {  
     SendString_InUnit("AT+WIPCREATE=2,1," , GSM); //Открытие сокета 
     SendString_InUnit(SERVER , GSM);
     SendString_InUnit(PORT , GSM);
@@ -325,11 +328,14 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
     }
     
  Reset_rxDMA_ClearBufer(GSM); //Сброс буфера 
+
+if(execute == ENABLE) break; //Если данные переданы выход из цикла попыток передачи
+}
  /*********************************/
  if((execute == DISABLE) && (rmc_buf == 0))
  {
  delay_ms(1000);  
- if(state != 0)
+ if((state != 0) && (state != STATUS.EVENT_BUF[0]))
  {
  STATUS.EVENT_BUF[2] = STATUS.EVENT_BUF[1];
  STATUS.EVENT_BUF[1] = STATUS.EVENT_BUF[0];
@@ -408,7 +414,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
  }
  
  //Очистка резервного буфера
- else if(rmc_buf !=0)
+ else if((rmc_buf !=0) && (execute == ENABLE))
  {
   switch(rmc_buf)
   {

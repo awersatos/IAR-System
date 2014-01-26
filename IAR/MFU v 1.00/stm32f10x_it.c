@@ -163,7 +163,12 @@ void SysTick_Handler(void) //Прерывание системного таймера итервал 1мкС
  }
  else Door_alarm_state = DISABLE; 
  
- MotorControlTime++;
+ if (MotorCtrlMode == TAHOMETR) MotorControlTime++;
+ else
+ {
+   if(GPIO_ReadInputDataBit(ALARM1, MOTOR_CTRL ) == 1) STATUS.MOTOR_Status = ENABLE;
+   else STATUS.MOTOR_Status = DISABLE;
+ }
 }
 
                       /*ПРЕРЫВАНИЯ ОТ ПЕРЕФИРИИ*/
@@ -241,8 +246,10 @@ void EXTI9_5_IRQHandler(void) //Внешние прерывания линии 5-9
   {
    
     delay_ms(10);
+    /*
     if((STATUS.SecurityStatus==DISABLE)&&(STATUS.AUTOSTART==DISABLE)&&(GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==1)&&(GPIO_ReadInputDataBit(ALARM1, ST_IN  )==1))
     {
+      
      //GPIO_SetBits(ALARM1 , ST_OUT); //Запуск стартера
      while(GPIO_ReadInputDataBit(ALARM1 , ST_IN )==1)
      {
@@ -250,11 +257,11 @@ void EXTI9_5_IRQHandler(void) //Внешние прерывания линии 5-9
      }
      GPIO_ResetBits(ALARM1 , ST_OUT); //Остановка стартера
     }
-    
+    */
     EXTI_ClearITPendingBit(EXTI_Line6); //Очистка флага прерывания
-//==============================================================================
+
   }
-  
+//============================================================================== 
   if(EXTI_GetITStatus(EXTI_Line8) != RESET) //Датчик удара SHOCK1
   {
     delay_ms(10);
@@ -284,7 +291,7 @@ void EXTI9_5_IRQHandler(void) //Внешние прерывания линии 5-9
 
  
 }
-
+//==============================================================================
 void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
 {
   if(EXTI_GetITStatus(EXTI_Line10) != RESET) //Тригер багажника TRUNK_TR
@@ -472,6 +479,9 @@ void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
  
   if(EXTI_GetITStatus(EXTI_Line14) != RESET) //Линия прерывания по запуску двигателя
  {
+   
+ if (MotorCtrlMode == TAHOMETR)
+ {
  if((MotorControlTime - Last_MotorControlTime) < 60)
  {
   GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
@@ -480,6 +490,13 @@ void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
  else STATUS.MOTOR_Status = DISABLE;
  
  Last_MotorControlTime = MotorControlTime;
+ }
+ else
+ {
+  GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
+  STATUS.MOTOR_Status = ENABLE; 
+ }
+ 
  EXTI_ClearITPendingBit(EXTI_Line14); //Очистка флага прерывания  
  }
   
