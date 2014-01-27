@@ -45,9 +45,11 @@ extern const char PHONE_NUMBER[];
 
 extern char IMEI[]; //Массив для IMEI
 
+extern uint8_t SendDataError;
+
 //*************Объявление испльзуемых функций***********************************
 void SIM(uint8_t sim); //Функция переключения СИМ карт
-void GSM_Configuration(void); //Инициализация GSM
+void GSM_Configuration(uint8_t sim); //Инициализация GSM
 char REG_NET(void);  //Проверка регистации в сети
 void SendData_onServer(uint16_t state, uint8_t rmc_buf);  //Функция отправки данных на сервер
 void ANSWER_CALL(void); //Функция ответа на входящий звонок

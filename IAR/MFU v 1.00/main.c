@@ -53,6 +53,7 @@ char Navi_TxBuffer[TX_BufferSize+1];      //Передающий Navigation буфер USART3
 char Navi_RxBuffer[RX_BufferSize+1];      //Приемный Navigation буфер USART3
 
 uint16_t sec_cnt=0;
+uint8_t sec_cnt2 = 0;
 uint16_t period=300;
  
 //******************************************************************************
@@ -83,7 +84,7 @@ IWDG_Configuration();//Инициализация сторожевого таймера
 Transceiver_Configuration(); //Инициализация трансивера
 NAVI_Configuration(); //Инициализация навигационного приемника
 Bluetooth_Configuration(); //Инициализация Bluetooth
-GSM_Configuration(); //Инициализация GSM
+GSM_Configuration(1); //Инициализация GSM
 
 while(STATUS.MainPower == DISABLE);
 
@@ -110,10 +111,7 @@ SendData_onServer(0,0);
   delay_ms(1000); 
 
 
-  /*
-  Bluetooth_Read();
-  SendString_InUnit("\r\nSTATUS:NORMAL\r\n" , Bluetooth);
-*/
+  
   RECEIVE_SMS(); //Функция получения СМС сообщения
   COMAND_EXEC();  //Исполнитель команд
  
@@ -146,7 +144,12 @@ SendData_onServer(0,0);
                else if(Timestamp[4][0]  != 0) SendData_onServer(0,4);
                     else if(Timestamp[5][0]  != 0) SendData_onServer(0,5);
    }
- }
+   if(sec_cnt2 > 60)
+   {
+    sec_cnt2 = 0;
+    if(STATUS.SIM_Card != 1) GSM_Configuration(1);
+   }
+ } //Конец основного цикла
  
 }
 //==============================================================================

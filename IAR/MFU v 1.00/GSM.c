@@ -22,19 +22,22 @@ const char SERVER[]= "\"bb1.avtoblackbox.com\""; //Сервер
 const char PORT[]= ",80\r\n"; //Порт
 char IMEI[] = "123456789012345"; //Массив для IMEI
 
-//uint8_t call_cont = 0;
+uint8_t SendDataError = 0;
 
 //***************Прототипы внутренних функций***********************************
 static FunctionalState START_TCP_IP(void); //Функция запуска стека TCP/IP
 //*****************Функции для работы с GSM  ***********************************
 
 
-void GSM_Configuration(void) //Инициализация GSM
+void GSM_Configuration(uint8_t sim) //Инициализация GSM
 {
  FunctionalState stack = DISABLE; 
  uint8_t nr_sim=1;
  uint8_t x; //Счетчик
  char *im; //Ссылочная переменная для IMEI
+ 
+ nr_sim = sim;
+ if(nr_sim>3) nr_sim=1;
  
  IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
  do {
@@ -129,6 +132,7 @@ void GSM_Configuration(void) //Инициализация GSM
  
 Reset_rxDMA_ClearBufer(GSM); //Сброс буфера
 
+SendDataError = 0;
 }
 
 //===============================================================================
@@ -191,7 +195,7 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
 
 
   // Если выбрана не 1 сим карта или нет регистрации в сети то перезапуск модема и поиск доступной сети
-  if((STATUS.SIM_Card!=1) || (REG_NET()!='R')) GSM_Configuration();   
+  if(SendDataError >= 5) GSM_Configuration(STATUS.SIM_Card + 1);   
   Reset_rxDMA_ClearBufer(GSM); //Сброс буфера
    
 for(uint8_t cnt=0;cnt<3;cnt++) //Счетчик попыток передачи
@@ -409,7 +413,7 @@ if(execute == ENABLE) break; //Если данные переданы выход из цикла попыток перед
     }
   }
  }
- GSM_Configuration();  
+  
    
  }
  
@@ -480,6 +484,12 @@ if(execute == ENABLE) break; //Если данные переданы выход из цикла попыток перед
   }
    
    
+ }
+
+ if(execute == DISABLE)
+ {
+ SendDataError++;
+ GSM_Configuration(STATUS.SIM_Card);
  }
  STATUS.GSM_DataMode = DISABLE;
 }
