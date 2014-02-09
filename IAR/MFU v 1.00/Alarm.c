@@ -11,6 +11,7 @@
 #include "main.h"
 #include "stm32f10x.h"
 #include "Service.h"
+#include "GSM.h"
 //*************Инициализация глобальных переменных******************************
 const uint8_t MotorCtrlMode = TAHOMETR; //Режим контроля двигателя
 //*************Функции для работы с сигнализацией ******************************
@@ -31,7 +32,7 @@ void SECURITY(FunctionalState stat) //Функция снятия/постановки на охрану и закр
    
    
     /*Проверка что тригеры дверей, капота и багажника замкнуты и зажигание выключено*/
-    if((GPIO_ReadInputDataBit(ALARM2,TRUNK_TR )==1) && (GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==0) && (GPIO_ReadInputDataBit(ALARM2,DOOR_TR )==0) && (GPIO_ReadInputDataBit(ALARM2,HOOD_TR )==1))
+    if((GPIO_ReadInputDataBit(ALARM2,TRUNK_TR )==0) && (GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==0) && (GPIO_ReadInputDataBit(ALARM2,DOOR_TR )==0) && (GPIO_ReadInputDataBit(ALARM2,HOOD_TR )==1))
     {
      
      
@@ -83,8 +84,8 @@ void SECURITY(FunctionalState stat) //Функция снятия/постановки на охрану и закр
 void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигателя
 {
   uint8_t cnt1; //Счетчики
-  uint8_t cnt2; 
-  uint8_t start_time=100; //Время работы стартера
+  uint16_t cnt2; 
+  uint16_t start_time=100; //Время работы стартера
   FunctionalState SecurST = DISABLE;
   
   if(status==ENABLE) //Запуск двигателя
@@ -103,26 +104,44 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
       
      STATUS.AUTOSTART=ENABLE; //Статус автозапуска активен
      GPIO_ResetBits(ALARM3 , M_LOCK); //Разблокировать двигатель
+     
+     for(cnt1=0;cnt1<1;cnt1++) //Счетчик попыток       
+     {
+       
+     GPIO_SetBits(ALARM1 , IGN2); //Включение иммобилайзера
+     delay_ms(10);
      GPIO_SetBits(ALARM1 , IGN1_OUT|IGN2|ACC); //Включение цепей зажигания
      
      IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
      delay_ms(4000);
-     
-     for(cnt1=0;cnt1<4;cnt1++) //Счетчик попыток
-     {
-       if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == DISABLE) GPIO_SetBits(ALARM1 , ST_OUT); //Запуск стартера
+       
+       if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==0*/STATUS.MOTOR_Status == DISABLE) GPIO_SetBits(ALARM1 , ST_OUT); //Запуск стартера
        
        for(cnt2=0;cnt2<start_time ; cnt2++) //Интервал работы стартера
        {
         delay_ms(10);
-        if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) break; //Если мотор запустился выход из подцикла
+        
+        if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) 
+        {
+                    
+          GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
+          break; //Если мотор запустился выход из подцикла
+        }
+        
        }
        GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
        GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
+       delay_ms(1000);
        if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) break; //Если мотор запустился выход из цикла
-       start_time=start_time+40 ; //Увеличение времени работы стартера
+       else
+       {
+       GPIO_ResetBits(ALARM1 , IGN1_OUT|IGN2|ACC); //Отключение цепей зажигания  
+       }
+       start_time=start_time+100 ; //Увеличение времени работы стартера
        IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
-       delay_ms(4000);
+       delay_ms(9000);
+       IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
+       delay_ms(5000);
      }
      if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) GPIO_SetBits(ALARM1 , ACC); //Если двигатель запущен включить ACC
      else //Если попытки запуска завершились неудачей
@@ -130,8 +149,16 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
       GPIO_ResetBits(ALARM1 , IGN1_OUT|IGN2|ACC); //Отключение цепей зажигания
       STATUS.AUTOSTART=DISABLE; //Статус автозапуска сброшен
       if(STATUS.SecurityStatus==ENABLE) GPIO_SetBits(ALARM3 , M_LOCK);//Если активен режим охраны заблокировать двигатель
-      
       SIREN_and_LIGHTS(2); //Двойное мигание фарами и звуковой сигнал
+      if(STATUS.AUTOHEAT_MODE != MODE_AUTOHEAT_OFF)
+      {
+       STATUS.AUTOHEAT_MODE = MODE_AUTOHEAT_OFF;
+       SEND_SMS(AUTOHEAT_OFF);
+       IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
+       delay_ms(1000);
+       SEND_SMS(MOTOR_START_ERROR);
+      }
+      
      }
     }
     else //Если условия автозапуска не соблюдены

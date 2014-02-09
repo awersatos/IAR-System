@@ -148,7 +148,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void) //Прерывание системного таймера итервал 1мкС
+void SysTick_Handler(void) //Прерывание системного таймера итервал 1мС
 {
  if((delay_EnableStatus == ENABLE)&&(delay_Counter!=0)) delay_Counter--;//Если активна подпрограмма задержки декремент счетчика
 
@@ -163,12 +163,16 @@ void SysTick_Handler(void) //Прерывание системного таймера итервал 1мкС
  }
  else Door_alarm_state = DISABLE; 
  
+
+// MotorControlTime++;
+
  if (MotorCtrlMode == TAHOMETR) MotorControlTime++;
  else
  {
    if(GPIO_ReadInputDataBit(ALARM1, MOTOR_CTRL ) == 1) STATUS.MOTOR_Status = ENABLE;
    else STATUS.MOTOR_Status = DISABLE;
  }
+
 }
 
                       /*ПРЕРЫВАНИЯ ОТ ПЕРЕФИРИИ*/
@@ -479,17 +483,22 @@ void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
  
   if(EXTI_GetITStatus(EXTI_Line14) != RESET) //Линия прерывания по запуску двигателя
  {
+
+
    
  if (MotorCtrlMode == TAHOMETR)
  {
- if((MotorControlTime - Last_MotorControlTime) < 60)
+
+ if((MotorControlTime - Last_MotorControlTime) < 85)
  {
-  GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
+  //GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
   STATUS.MOTOR_Status = ENABLE;
  }
  else STATUS.MOTOR_Status = DISABLE;
  
  Last_MotorControlTime = MotorControlTime;
+
+
  }
  else
  {

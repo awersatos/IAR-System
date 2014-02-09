@@ -15,7 +15,7 @@
 #include "Alarm.h"
 //*************Инициализация глобальных переменных******************************
 const char PHONE_NUMBER[] = "+79619918106";
-const char CLIENT_PHONE_NUMBER[] = "+79139207097"; //Номер клиента
+const char CLIENT_PHONE_NUMBER[] = "+79134725888"; //Номер клиента
 
                                   /*+79139207097*/ //Дмитрий
 const char SERVER[]= "\"bb1.avtoblackbox.com\""; //Сервер
@@ -195,10 +195,10 @@ void SendData_onServer(uint16_t state, uint8_t rmc_buf)  //Функция отправки данн
 
 
   // Если выбрана не 1 сим карта или нет регистрации в сети то перезапуск модема и поиск доступной сети
-  if(SendDataError >= 5) GSM_Configuration(STATUS.SIM_Card + 1);   
+  if(SendDataError >= 15) GSM_Configuration(STATUS.SIM_Card + 1);   
   Reset_rxDMA_ClearBufer(GSM); //Сброс буфера
    
-for(uint8_t cnt=0;cnt<3;cnt++) //Счетчик попыток передачи
+for(uint8_t cnt=0;cnt<2;cnt++) //Счетчик попыток передачи
   {  
     SendString_InUnit("AT+WIPCREATE=2,1," , GSM); //Открытие сокета 
     SendString_InUnit(SERVER , GSM);
@@ -232,7 +232,7 @@ for(uint8_t cnt=0;cnt<3;cnt++) //Счетчик попыток передачи
         }
         else 
         {
-          period = 30;
+          period = 60;
           SendString_InUnit("Content-Length: 86\r\n" , GSM);
           Navi_ResetCounter += 3;  
         }
@@ -298,7 +298,7 @@ for(uint8_t cnt=0;cnt<3;cnt++) //Счетчик попыток передачи
            execute = ENABLE; 
            break;
           }
-          delay_ms(1000);
+          delay_ms(500);
           IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
          }
  /***********************Закрытие сокета****************************************/
@@ -489,8 +489,9 @@ if(execute == ENABLE) break; //Если данные переданы выход из цикла попыток перед
  if(execute == DISABLE)
  {
  SendDataError++;
- GSM_Configuration(STATUS.SIM_Card);
+ if(SendDataError >= 3)GSM_Configuration(STATUS.SIM_Card);
  }
+
  STATUS.GSM_DataMode = DISABLE;
 }
 

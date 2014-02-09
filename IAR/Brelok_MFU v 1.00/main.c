@@ -20,7 +20,7 @@ FunctionalState Transceiver_Status = DISABLE; //Статус активности трансивера
 FunctionalState CRYPT = DISABLE; //Статус шифрования
 uint16_t i,j;
 
-const char SERIAL[] = "\015BR1234567890"; //Серийный номер
+const char SERIAL[] = "\015BR1234567899"; //Серийный номер
 /*
 const char COMMAND_1[] = "\015BRELOK_TEST";
 const char COMMAND_2[] = "\014TEST_COMAND";

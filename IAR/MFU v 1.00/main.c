@@ -27,7 +27,7 @@
 
 
 const char SERIAL_NUMBER[] = "1231231230" ; //Серийный номер устройства
-const char BRELOK_SN[] = "BR1234567890" ; //Серийный номер брелка
+const char BRELOK_SN[] = "BR1234567899" ; //Серийный номер брелка
 
 const uint8_t KEY[16]=     //Ключ шифрования
 {  'B', 'R', 'E', 'L',
@@ -88,18 +88,13 @@ GSM_Configuration(1); //Инициализация GSM
 
 while(STATUS.MainPower == DISABLE);
 
-
 delay_ms(500);
 SIREN_and_LIGHTS(3); //Тройное мигание фарами и звуковой сигнал
 Write_Default_Setting();
- 
-
 
 SendString_InUnit("AT+CMGD=0,4\r\n" , GSM); 
 delay_ms(500);
 SendData_onServer(0,0);
-
-
 
 /******************************************************************************/
 
@@ -111,7 +106,7 @@ SendData_onServer(0,0);
   delay_ms(1000); 
 
 
-  
+
   RECEIVE_SMS(); //Функция получения СМС сообщения
   COMAND_EXEC();  //Исполнитель команд
  
