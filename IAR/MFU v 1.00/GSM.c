@@ -809,7 +809,7 @@ case TRUNK_ALARM:
   }
  SendString_InUnit("\x1A" , GSM); //Команда отправки сообщения
  
- for( i=0; i<100; i++)
+ for( i=0; i<150; i++)
  { 
  delay_ms(50);
  if(strstr(GSM_RxBuffer , "OK") != NULL) 

@@ -44,6 +44,8 @@ FunctionalState Door_alarm_state = DISABLE;
 
 uint32_t MotorControlTime , Last_MotorControlTime;
 
+uint8_t tah_ver = 0;
+
 
 
 /* Private function prototypes -----------------------------------------------*/
@@ -166,7 +168,13 @@ void SysTick_Handler(void) //Прерывание системного таймера итервал 1мС
 
 // MotorControlTime++;
 
- if (MotorCtrlMode == TAHOMETR) MotorControlTime++;
+ if (MotorCtrlMode == TAHOMETR) 
+ {MotorControlTime++;
+   if((MotorControlTime - Last_MotorControlTime) > 100) 
+   {STATUS.MOTOR_Status = DISABLE;
+    tah_ver = 0;
+   }
+ }
  else
  {
    if(GPIO_ReadInputDataBit(ALARM1, MOTOR_CTRL ) == 1) STATUS.MOTOR_Status = ENABLE;
@@ -249,7 +257,7 @@ void EXTI9_5_IRQHandler(void) //Внешние прерывания линии 5-9
   if(EXTI_GetITStatus(EXTI_Line6) != RESET) //Вход стартера
   {
    
-    delay_ms(10);
+    //delay_ms(10);
     /*
     if((STATUS.SecurityStatus==DISABLE)&&(STATUS.AUTOSTART==DISABLE)&&(GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==1)&&(GPIO_ReadInputDataBit(ALARM1, ST_IN  )==1))
     {
@@ -489,12 +497,18 @@ void EXTI15_10_IRQHandler(void) //Внешние прерывания линии 10-15
  if (MotorCtrlMode == TAHOMETR)
  {
 
- if((MotorControlTime - Last_MotorControlTime) < 85)
+ if((MotorControlTime - Last_MotorControlTime) < 100)
  {
-  //GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера  
-  STATUS.MOTOR_Status = ENABLE;
+  tah_ver++;  
+  //STATUS.MOTOR_Status = ENABLE;
  }
- else STATUS.MOTOR_Status = DISABLE;
+ else 
+ {
+   tah_ver = 0;
+   STATUS.MOTOR_Status = DISABLE;
+ }
+ 
+ if(tah_ver>2)STATUS.MOTOR_Status = ENABLE;
  
  Last_MotorControlTime = MotorControlTime;
 

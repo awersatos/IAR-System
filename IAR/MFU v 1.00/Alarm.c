@@ -85,7 +85,7 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
 {
   uint8_t cnt1; //Счетчики
   uint16_t cnt2; 
-  uint16_t start_time=100; //Время работы стартера
+  uint16_t start_time=200; //Время работы стартера
   FunctionalState SecurST = DISABLE;
   
   if(status==ENABLE) //Запуск двигателя
@@ -102,24 +102,26 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
     if(GPIO_ReadInputDataBit(ALARM1,IGN1_IN )==0 ) //Проверка стояночного тормоза и включения зажигания
     {
       
-     STATUS.AUTOSTART=ENABLE; //Статус автозапуска активен
+    // STATUS.AUTOSTART=ENABLE; //Статус автозапуска активен
      GPIO_ResetBits(ALARM3 , M_LOCK); //Разблокировать двигатель
      
-     for(cnt1=0;cnt1<1;cnt1++) //Счетчик попыток       
+     for(cnt1=0;cnt1<3;cnt1++) //Счетчик попыток       
      {
-       
+     IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера  
      GPIO_SetBits(ALARM1 , IGN2); //Включение иммобилайзера
-     delay_ms(10);
-     GPIO_SetBits(ALARM1 , IGN1_OUT|IGN2|ACC); //Включение цепей зажигания
+     delay_ms(500);
+      GPIO_SetBits(ALARM1 , ACC); //Включение цепей зажигания
+      delay_ms(500);
+     GPIO_SetBits(ALARM1 , IGN1_OUT); //Включение цепей зажигания
+     delay_ms(500);
      
-     IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
-     delay_ms(4000);
+     delay_ms(5000);
        
-       if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==0*/STATUS.MOTOR_Status == DISABLE) GPIO_SetBits(ALARM1 , ST_OUT); //Запуск стартера
+       /*if(STATUS.MOTOR_Status == DISABLE)*/ GPIO_SetBits(ALARM1 , ST_OUT); //Запуск стартера
        
        for(cnt2=0;cnt2<start_time ; cnt2++) //Интервал работы стартера
        {
-        delay_ms(10);
+        delay_ms(5);
         
         if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) 
         {
@@ -130,8 +132,8 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
         
        }
        GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
-       GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
-       delay_ms(1000);
+       //GPIO_ResetBits(ALARM1 , ST_OUT);//Остановка стартера
+       delay_ms(5000);
        if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) break; //Если мотор запустился выход из цикла
        else
        {
@@ -143,7 +145,10 @@ void AUTOSTART(FunctionalState status) //Дистанционный запуск/остановка двигател
        IWDG_ReloadCounter(); //Сброс счетчика сторожевого таймера
        delay_ms(5000);
      }
-     if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) GPIO_SetBits(ALARM1 , ACC); //Если двигатель запущен включить ACC
+     if(/*GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1*/STATUS.MOTOR_Status == ENABLE) 
+     {//GPIO_SetBits(ALARM1 , ACC); //Если двигатель запущен включить ACC
+     STATUS.AUTOSTART=ENABLE; //Статус автозапуска активен
+     }
      else //Если попытки запуска завершились неудачей
      {
       GPIO_ResetBits(ALARM1 , IGN1_OUT|IGN2|ACC); //Отключение цепей зажигания

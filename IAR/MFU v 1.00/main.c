@@ -75,7 +75,7 @@ TIMER_Configuration();//Инициализация таймеров
 DMA_Configuration(); //Инициализация каналов DMA
 UART_Configuration();//Инициализация USART
 SPI_Configuration();//Инициализация SPI
-SysTick_Config(2*SystemCoreClock/1000); //Преиод счета системного таймера 1 мС
+SysTick_Config(SystemCoreClock/1000); //Преиод счета системного таймера 1 мС
 NVIC_SetPriority(SysTick_IRQn,0); //Приоритетпрерывания системного таймера наивысший
 IWDG_Configuration();//Инициализация сторожевого таймера
 
@@ -144,6 +144,20 @@ SendData_onServer(0,0);
     sec_cnt2 = 0;
     if(STATUS.SIM_Card != 1) GSM_Configuration(1);
    }
+ 
+ 
+if(STATUS.AUTOSTART==ENABLE)
+{
+  if(STATUS.MOTOR_Status == DISABLE)
+  {
+    delay_ms(300);
+    if(STATUS.MOTOR_Status == DISABLE) AUTOSTART(ENABLE);
+    delay_ms(1000);
+    if(STATUS.MOTOR_Status == DISABLE) AUTOSTART(DISABLE);
+  }
+  
+}
+
  } //Конец основного цикла
  
 }
@@ -1019,7 +1033,7 @@ void COMAND_EXEC(void)  //Исполнитель команд
     {
     AUTOSTART(ENABLE); 
     delay_ms(2000);
-    if(GPIO_ReadInputDataBit(ALARM1,MOTOR_CTRL )==1) SEND_SMS(MOTOR_ON); 
+    if(STATUS.MOTOR_Status == ENABLE) SEND_SMS(MOTOR_ON); 
     else SEND_SMS(MOTOR_START_ERROR);
     break;}
     
